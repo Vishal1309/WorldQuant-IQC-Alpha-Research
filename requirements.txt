@@ -1,0 +1,35 @@
+# WorldQuant Brain API (direct REST calls — standard approach)
+requests
+tenacity
+
+# Data
+pandas
+numpy
+pyarrow
+
+# Config / env
+python-dotenv
+
+# Progress + display
+tqdm
+
+# Notebooks
+jupyter
+ipywidgets
+
+# Visualisation
+matplotlib
+plotly
+seaborn
+
+# Signal discovery
+scipy
+statsmodels
+scikit-learn
+
+# Local backtesting
+yfinance
+vectorbt
+
+# YAML alpha manifests
+pyyaml
