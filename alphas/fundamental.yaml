@@ -1,0 +1,58 @@
+# Fundamental alpha definitions
+# These use accounting data — they update quarterly, so turnover is lower.
+# Always use Subindustry neutralization to isolate stock-specific signals.
+# Use decay=10-20 to smooth the signal between quarterly reports.
+
+settings: &fundamental_settings
+  region: USA
+  universe: TOP3000
+  neutralization: Subindustry
+  delay: 1
+  decay: 10
+  truncation: 0.08
+
+alphas:
+  # --- Value factors ---
+  - expression: "group_rank(book_to_price, subindustry)"
+    tags: [fundamental, value]
+    notes: "Classic value: buy cheap stocks within subindustry"
+    <<: *fundamental_settings
+
+  - expression: "group_rank(earnings_per_share / (close + 1e-6), subindustry)"
+    tags: [fundamental, value, earnings-yield]
+    notes: "Earnings yield: high E/P within sector"
+    <<: *fundamental_settings
+
+  # --- Quality: profitability improvement ---
+  - expression: "group_rank(ts_delta(roe, 4), subindustry)"
+    tags: [fundamental, quality, roe]
+    notes: "Stocks with improving ROE over last 4 quarters"
+    <<: *fundamental_settings
+
+  - expression: "group_rank(ts_delta(gross_margin, 4), subindustry)"
+    tags: [fundamental, quality, margin]
+    notes: "Improving gross margins — quality signal"
+    <<: *fundamental_settings
+
+  # --- Anti-quality: penalise aggressive growth ---
+  - expression: "-1 * group_rank(ts_delta(total_assets, 4), subindustry)"
+    tags: [fundamental, quality, asset-growth]
+    notes: "Firms that over-invest in assets underperform (Titman et al.)"
+    <<: *fundamental_settings
+
+  # --- Earnings quality ---
+  - expression: "group_rank(cash_from_operations / (net_income + 1e-6), subindustry)"
+    tags: [fundamental, quality, accruals]
+    notes: "High cash-to-earnings ratio = high quality earnings"
+    <<: *fundamental_settings
+
+  # --- Momentum within fundamental themes ---
+  - expression: "group_rank(ts_delta(roe, 4), subindustry)"
+    tags: [fundamental, quality, roe-momentum]
+    notes: "ROE improvement trend"
+    decay: 5
+    region: USA
+    universe: TOP3000
+    neutralization: Subindustry
+    delay: 1
+    truncation: 0.08

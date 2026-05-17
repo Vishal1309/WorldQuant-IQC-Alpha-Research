@@ -1,0 +1,61 @@
+# Mean-reversion alpha definitions
+# Short-window contrarian signals. These typically have higher turnover —
+# watch the fitness formula: sqrt(abs(returns) / max(turnover, 0.125)) * sharpe
+
+settings: &default_settings
+  region: USA
+  universe: TOP3000
+  neutralization: Subindustry
+  delay: 1
+  decay: 0
+  truncation: 0.08
+
+alphas:
+  # --- z-score reversion ---
+  - expression: "-1 * ts_zscore(close, 3)"
+    tags: [reversion, price, w3]
+    notes: "Very short-term price reversion (3 days)"
+    <<: *default_settings
+
+  - expression: "-1 * ts_zscore(close, 5)"
+    tags: [reversion, price, w5]
+    notes: "5-day price reversion"
+    <<: *default_settings
+
+  - expression: "-1 * ts_zscore(close, 10)"
+    tags: [reversion, price, w10]
+    notes: "10-day price reversion"
+    <<: *default_settings
+
+  # --- Mean reversion ---
+  - expression: "ts_mean(close, 5) - close"
+    tags: [reversion, price, w5]
+    notes: "Buy stocks below their 5-day moving average"
+    <<: *default_settings
+
+  - expression: "ts_mean(close, 10) - close"
+    tags: [reversion, price, w10]
+    notes: "Buy stocks below their 10-day moving average"
+    <<: *default_settings
+
+  # --- Return reversion ---
+  - expression: "-1 * ts_rank(returns, 3)"
+    tags: [reversion, returns, w3]
+    notes: "Fade the last 3 days of return rank"
+    <<: *default_settings
+
+  - expression: "-1 * ts_rank(returns, 5)"
+    tags: [reversion, returns, w5]
+    notes: "Fade the last 5 days of return rank"
+    <<: *default_settings
+
+  # --- Mean reversion with longer anchor ---
+  - expression: "ts_mean(close, 20) - ts_mean(close, 5)"
+    tags: [reversion, price, dual-window]
+    notes: "Short-term dip vs 20-day trend"
+    <<: *default_settings
+
+  - expression: "ts_mean(close, 60) - ts_mean(close, 10)"
+    tags: [reversion, price, dual-window]
+    notes: "10-day dip vs 60-day trend"
+    <<: *default_settings
