@@ -1,0 +1,29 @@
+# Credentials — never commit
+.env
+
+# Data artifacts — regenerated locally
+data/datafields.parquet
+data/operators.json
+data/results.csv
+
+# Virtual environment
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# macOS
+.DS_Store

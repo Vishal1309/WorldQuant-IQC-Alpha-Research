@@ -1,0 +1,66 @@
+# Momentum alpha definitions
+# Expressions use WorldQuant Brain operator syntax.
+# Load and submit these via notebook 03 or directly with AlphaConfig.
+
+settings: &default_settings
+  region: USA
+  universe: TOP3000
+  neutralization: Subindustry
+  delay: 1
+  decay: 0
+  truncation: 0.08
+
+alphas:
+  # --- Price momentum ---
+  - expression: "ts_rank(close, 5)"
+    tags: [momentum, price, w5]
+    notes: "5-day price rank momentum"
+    <<: *default_settings
+
+  - expression: "ts_rank(close, 10)"
+    tags: [momentum, price, w10]
+    notes: "10-day price rank momentum"
+    <<: *default_settings
+
+  - expression: "ts_rank(close, 20)"
+    tags: [momentum, price, w20]
+    notes: "20-day price rank momentum — baseline"
+    <<: *default_settings
+
+  - expression: "ts_rank(close, 60)"
+    tags: [momentum, price, w60]
+    notes: "60-day price rank momentum — medium-term"
+    <<: *default_settings
+
+  # --- Return momentum ---
+  - expression: "ts_zscore(returns, 10)"
+    tags: [momentum, returns, w10]
+    notes: "Normalised return z-score momentum"
+    <<: *default_settings
+
+  - expression: "ts_zscore(returns, 20)"
+    tags: [momentum, returns, w20]
+    notes: "20-day return z-score momentum"
+    <<: *default_settings
+
+  # --- Volume-price divergence ---
+  - expression: "-1 * ts_corr(rank(close), rank(volume), 10)"
+    tags: [momentum, price-volume, w10]
+    notes: "Long stocks where price rises without volume (accumulation)"
+    <<: *default_settings
+
+  - expression: "-1 * ts_corr(rank(close), rank(volume), 20)"
+    tags: [momentum, price-volume, w20]
+    notes: "20-day volume-price divergence"
+    <<: *default_settings
+
+  # --- Dual-window momentum ---
+  - expression: "ts_rank(close, 20) - ts_rank(close, 60)"
+    tags: [momentum, dual-window]
+    notes: "Short vs long momentum — captures acceleration"
+    <<: *default_settings
+
+  - expression: "ts_rank(close, 5) - ts_rank(close, 20)"
+    tags: [momentum, dual-window]
+    notes: "5-day vs 20-day — very short-term acceleration"
+    <<: *default_settings

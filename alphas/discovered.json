@@ -1,0 +1,8 @@
+{
+  "expression": "ts_std_dev(returns, 5)",
+  "tags": [
+    "ml-discovered",
+    "vol_5"
+  ],
+  "notes": "Discovered via RF feature importance: vol_5 was top predictor"
+}

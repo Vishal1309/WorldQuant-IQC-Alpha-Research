@@ -1,0 +1,26 @@
+expression,is_sharpe,is_fitness,is_returns,is_turnover,tags,submittable
+"group_rank(ts_delta(assets, 4), subindustry)",1.79,1.34,0.1168,0.2077,"[""fundamental"", ""sweep"", ""assets""]",True
+"group_rank(ts_delta(liabilities, 4), subindustry)",1.69,1.22,0.1081,0.206,"[""fundamental"", ""sweep"", ""liabilities""]",True
+"-1 * ts_zscore(close, 10)",1.8,0.9,0.1679,0.6781,"[""reversion"", ""close"", ""w10""]",True
+"-1 * ts_zscore(close, 5)",2.0,0.84,0.1693,0.9542,"[""reversion"", ""close"", ""w5""]",True
+"group_rank(ts_delta(operating_income, 4), subindustry)",1.33,0.83,0.0793,0.2028,"[""fundamental"", ""sweep"", ""operating_income""]",True
+"-1 * ts_rank(close, 5)",2.0,0.81,0.1607,0.9838,"[""reversion"", ""close"", ""w5""]",True
+"-1 * ts_zscore(vwap, 10)",1.61,0.78,0.1485,0.6261,"[""reversion"", ""vwap"", ""w10""]",True
+"-1 * ts_rank(vwap, 10)",1.66,0.77,0.1462,0.6765,"[""reversion"", ""vwap"", ""w10""]",True
+"ts_mean(returns, 20) - ts_mean(returns, 5)",1.39,0.76,0.1929,0.6376,"[""reversion"", ""returns"", ""w5""]",True
+"-1 * ts_zscore(vwap, 5)",1.75,0.71,0.1484,0.8983,"[""reversion"", ""vwap"", ""w5""]",True
+"ts_mean(vwap, 10) - vwap",1.35,0.7,0.1327,0.4876,"[""reversion"", ""vwap"", ""w10""]",True
+"-1 * ts_rank(vwap, 5)",1.78,0.7,0.1439,0.9307,"[""reversion"", ""vwap"", ""w5""]",True
+"-1 * ts_rank(open, 10)",1.6,0.68,0.1342,0.7368,"[""reversion"", ""open"", ""w10""]",True
+"ts_mean(close, 10) - close",1.36,0.68,0.1328,0.5361,"[""reversion"", ""close"", ""w10""]",True
+"-1 * ts_zscore(close, 3)",1.95,0.68,0.1531,1.2499,"[""reversion"", ""close"", ""w3""]",True
+"-1 * ts_zscore(open, 5)",1.75,0.67,0.1408,0.9684,"[""reversion"", ""open"", ""w5""]",True
+"-1 * ts_zscore(open, 10)",1.5,0.65,0.1317,0.6949,"[""reversion"", ""open"", ""w10""]",True
+"-1 * ts_rank(close, 3)",1.87,0.62,0.134,1.2148,"[""reversion"", ""close"", ""w3""]",True
+"-1 * ts_zscore(vwap, 3)",1.79,0.62,0.1424,1.2016,"[""reversion"", ""vwap"", ""w3""]",True
+"-1 * ts_zscore(open, 3)",1.82,0.59,0.1327,1.2519,"[""reversion"", ""open"", ""w3""]",True
+"ts_mean(open, 10) - open",1.25,0.59,0.122,0.55,"[""reversion"", ""open"", ""w10""]",True
+"-1 * ts_rank(vwap, 3)",1.73,0.57,0.1252,1.1623,"[""reversion"", ""vwap"", ""w3""]",True
+"-1 * ts_rank(open, 3)",1.79,0.56,0.1195,1.2188,"[""reversion"", ""open"", ""w3""]",True
+"-1 * ts_zscore(returns, 10)",1.5,0.4,0.1025,1.4285,"[""reversion"", ""returns"", ""w10""]",True
+"-1 * ts_rank(returns, 10)",1.4,0.35,0.0888,1.4076,"[""reversion"", ""returns"", ""w10""]",True
